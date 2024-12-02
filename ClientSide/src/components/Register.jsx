@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Register.css"; // Import the external CSS file
+
 import "./register.css"
 import { Navigate, useNavigate } from "react-router-dom";
 const Register = () => {

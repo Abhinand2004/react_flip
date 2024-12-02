@@ -7,10 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333; /* Dark background */
-    padding: 10px 20px;
+    background-color: #333; 
     color: white;
     font-family: Arial, sans-serif;
+    /* height: 80px; */
+    padding: 10px 50px;
 }
 
 .logodiv h1 {
@@ -41,18 +42,34 @@
     cursor: pointer;
 }
 
-/* Change select dropdown styles on focus */
+
 .rightside select:focus {
     outline: none;
-    border-color: #007bff; /* Highlight border */
+    border-color: #007bff; 
 }
 
-/* Optional: Add hover effect for the dropdown */
+
 .rightside select:hover {
     border-color: #0056b3;
 }
+select {
+     appearance: none; 
+     -moz-appearance: none;
+      -webkit-appearance: none; 
+      background-color: #fff;
+       border: 1px solid #ccc;
+        padding: 10px; font-size: 16px;
+         font-family: Arial, sans-serif; cursor: pointer; 
+         /* Remove the default arrow */ background-image: none; 
+         display: flex;
+         align-items: center;
+         justify-content: center;
+} 
+option 
+{ 
+    padding: 10px; font-size: 16px; 
+}
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .navbar {
         flex-direction: column;

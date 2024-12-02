@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./verify.css";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const Verify = () => {
   const [email, setEmail] = useState("");
-
+const navigate=useNavigate()
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email submitted for verification:", email);
-  
+    // console.log("Email submitted for verification:", email);
+  navigate("/register")
   };
 
   return (

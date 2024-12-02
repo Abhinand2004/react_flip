@@ -1,9 +1,10 @@
 import userSchema from "./model/user.js"
 import nodemailer from 'nodemailer'
-
 import bcrypt from 'bcrypt'
 import pkg from 'jsonwebtoken'
 const { sign } = pkg
+
+
 
 const transporter = nodemailer.createTransport({
     service:"gmail",
@@ -51,15 +52,7 @@ export async function login(req, res) {
     const token = await sign({ UserID: user._id }, process.env.JWT_KEY, { expiresIn: "24h" })
     // console.log(token);
     res.status(201).send({ token })
-
 }
-
-
-
-
-
-
-
 
   export async function verifyEmail(req,res) {
     const {email}=req.body
@@ -68,7 +61,7 @@ export async function login(req, res) {
         return res.status(500).send({msg:"fields are empty"})
     }
     const user= await userSchema.findOne({email})        
-    if (user) {
+    if (!user) {
         const info = await transporter.sendMail({
             from: 'abhinandc293@gmail.com', // sender address
             to: email, // list of receivers
@@ -83,15 +76,23 @@ export async function login(req, res) {
         <button style="padding: 5px 15px; border: none; border-radius: 4px; 
         background-color: white;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         font-size: 18px; color: red; font-style: italic;" >Verify</button>
-    </div>`, // html body
+    </div>`, 
         })
         console.log("Message sent: %s", info.messageId)
         res.status(201).send({msg:"Verificaton email sented"})
     }else{
-        return res.status(500).send({msg:"emial donot exist"})
+        return res.status(500).send({msg:"email already exist"})
     }
 }
 
+export async function display(req, res) {
+    // console.log(req.user);
+    const usr=await userSchema.findOne({_id:req.user.UserID})
+    // console.log(usr);
+    res.status(200).send({user:usr.username,email:usr.email}); 
+
+   
+}
 
 
 
