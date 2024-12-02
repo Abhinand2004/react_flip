@@ -1,0 +1,67 @@
+/* nav.css */
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Dark background */
+    padding: 10px 20px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.logodiv h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.rightside {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.rightside h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.rightside select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Change select dropdown styles on focus */
+.rightside select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border */
+}
+
+/* Optional: Add hover effect for the dropdown */
+.rightside select:hover {
+    border-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .rightside {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
