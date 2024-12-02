@@ -89,7 +89,7 @@ export async function display(req, res) {
     // console.log(req.user);
     const usr=await userSchema.findOne({_id:req.user.UserID})
     // console.log(usr);
-    res.status(200).send({user:usr.username,email:usr.email}); 
+    res.status(200).send({userid:usr._id}); 
 
    
 }
