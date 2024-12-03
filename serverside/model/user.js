@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     username: { type: String },  
     email: { type: String },
-    pass: { type: String },
-    otp:{type:Number},
+    pass: { type: String }
 });
 
 

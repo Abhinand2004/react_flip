@@ -68,15 +68,16 @@ export async function login(req, res) {
             subject: "verify", // Subject line
             text: "VERIFY! your email", // plain text body
             html: `
-    <div class=" page" style="width: 500px; height: 300px; display: flex; 
-    align-items: center; justify-content: center; flex-direction: column;
-     background-color: gainsboro;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; ">
+  <body>
+    <div style="width: 500px; height: 300px; display: flex; align-items: center; justify-content: center; flex-direction: column; background-color: gainsboro; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
         <h2>Email verification</h2>
-        <p>Click This Button to verify its you</p>
-        <button style="padding: 5px 15px; border: none; border-radius: 4px; 
-        background-color: white;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        font-size: 18px; color: red; font-style: italic;" >Verify</button>
-    </div>`, 
+        <p>Click This Button to verify it's you</p>
+<a href="http://localhost:5173/register">
+        <button style="padding: 5px 15px; border: none; border-radius: 4px; background-color: white; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; font-size: 18px; color: red; font-style: italic;">Verify</button>
+
+</a>
+    </div>
+</body>`, 
         })
         console.log("Message sent: %s", info.messageId)
         res.status(201).send({msg:"Verificaton email sented"})
@@ -90,8 +91,6 @@ export async function display(req, res) {
     const usr=await userSchema.findOne({_id:req.user.UserID})
     // console.log(usr);
     res.status(200).send({userid:usr._id}); 
-
-   
 }
 
 

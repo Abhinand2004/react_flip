@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
-
+import { data, Link, useNavigate } from "react-router-dom";
+import axios, { CancelToken } from "axios";
+import { Navigate } from "react-router-dom";
 const Login = () => {
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
     email: "",
     pass: "",
@@ -18,20 +20,25 @@ const Login = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const res=await fetch('http://localhost:3011/api/login',{
-        method:"POST",
-        headers:{"content-Type":'application/json'},
-        body:JSON.stringify(formData)
-    })
+    try {
+      const res=await axios.post('http://localhost:3011/api/login',formData)
       
 
-    const data=await res.json()
+ 
     if(res.status==201){  
-        // localStorage.setItem('token',data.token)
-        alert("you logined")
+      alert("you logined")
+      console.log(res.data.token);
+      // localStorage.setItem('token',res.data.token)
+      navigate("/")
+
+        
     }
     else{
-        alert(data.error)
+        // alert(res.data.error)
+    }
+    } catch (error) {
+      console.log(error);
+      
     }
 
   };

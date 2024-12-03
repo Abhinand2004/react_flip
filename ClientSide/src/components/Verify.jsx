@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import "./verify.css";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios"
 const Verify = () => {
   const [email, setEmail] = useState("");
 const navigate=useNavigate()
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     // console.log("Email submitted for verification:", email);
-  navigate("/register")
+    try {
+      const res= await axios.post("http://localhost:3011/api/verify",{email})
+      console.log(res);
+      if (res.status==201) {
+        console.log(res.data.msg);
+        localStorage.setItem("email",email)
+        
+      }
+    } catch (error) {
+      
+    }
+  // navigate("/register")
   };
 
   return (
