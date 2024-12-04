@@ -87,11 +87,18 @@ export async function login(req, res) {
 }
 
 export async function display(req, res) {
-    // console.log(req.user);
-    const usr=await userSchema.findOne({_id:req.user.UserID})
-    // console.log(usr);
-    res.status(200).send({userid:usr._id}); 
+    try {
+        const usr = await userSchema.findOne({ _id: req.user.UserID });
+        if (!usr) return res.status(404).send("User not found");
+        res.status(200).send({
+            username: usr.username,
+            email: usr.email,
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
+
 
 
 

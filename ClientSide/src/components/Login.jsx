@@ -28,7 +28,7 @@ const Login = () => {
     if(res.status==201){  
       alert("you logined")
       console.log(res.data.token);
-      // localStorage.setItem('token',res.data.token)
+      localStorage.setItem('token',res.data.token)
       navigate("/")
 
         
