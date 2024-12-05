@@ -14,13 +14,17 @@ const navigate=useNavigate()
     try {
       const res= await axios.post("http://localhost:3011/api/verify",{email})
       console.log(res);
+
       if (res.status==201) {
         console.log(res.data.msg);
         localStorage.setItem("email",email)
         
+      }else{
+        alert("email already exist")
       }
+
     } catch (error) {
-      
+      alert("email already exist")
     }
   // navigate("/register")
   };
