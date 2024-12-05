@@ -1,30 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-const HomePage = ({setUser}) => {
-    // const [userData, setUserData] = useState({ username: "", email: "" });
-const navigate=useNavigate()
-    useEffect(() => {
-        const fetchUserData = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-               navigate("/login") 
-            } else{
+const HomePage = ({ setUser }) => {
+
+    const navigate = useNavigate()
+    const fetchUserData = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login")
+        } else {
             try {
-                const  res  = await axios.get("http://localhost:3011/api/display", {
+                const res = await axios.get("http://localhost:3011/api/display", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                if (res.status==200) {
-                    
+                if (res.status == 200) {
+
                     setUser(res.data.username)
-                }else{
+                } else {
                     navigate("/login")
                 }
-                // setUserData(data);
+
             } catch (error) {
-                console.error("Error fetching user data:", error);
-            }}
-        };
+                alert("your token is expired")
+                localStorage.removeItem("token")
+                navigate("/login")
+            }
+        }
+    };
+
+    useEffect(() => {
 
         fetchUserData();
     }, []);

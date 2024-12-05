@@ -8,7 +8,10 @@ router.route('/adduser').post(rh.addUser)
 router.route('/login').post(rh.login)
 router.route('/verify').post(rh.verifyEmail)
 router.route("/display").get(Auth,rh.display)
-// router.route('/otpcheck').post(rh.verifyotp)
-// router.route('/passcheck').post(rh.updatepass)
+router.route("/display").get(Auth,rh.display)
+router.route("/addprofile").post(rh.addprofile)
+
+
+
 
 export default router

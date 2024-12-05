@@ -4,29 +4,29 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios"
 const Verify = () => {
   const [email, setEmail] = useState("");
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("Email submitted for verification:", email);
     try {
-      const res= await axios.post("http://localhost:3011/api/verify",{email})
+      const res = await axios.post("http://localhost:3011/api/verify", { email })
       console.log(res);
 
-      if (res.status==201) {
+      if (res.status == 201) {
         console.log(res.data.msg);
-        localStorage.setItem("email",email)
-        
-      }else{
+        localStorage.setItem("email", email)
+
+      } else {
         alert("email already exist")
       }
 
     } catch (error) {
       alert("email already exist")
     }
-  // navigate("/register")
+    // navigate("/register")
   };
 
   return (
@@ -35,7 +35,7 @@ const navigate=useNavigate()
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email Address:</label>
-          <input  type="email"  name="email"  value={email}  onChange={handleChange}  required  placeholder="Enter your email" />
+          <input type="email" name="email" value={email} onChange={handleChange} required placeholder="Enter your email" />
         </div>
         <button type="submit" className="btn-verify">  Verify </button>
       </form>

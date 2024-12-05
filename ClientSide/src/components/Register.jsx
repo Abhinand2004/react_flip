@@ -6,39 +6,39 @@ import axios from "axios";
 
 
 const Register = () => {
-  const navigate=useNavigate()
-  
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     pwd: "",
     cpwd: "",
   });
-  formData.email=localStorage.getItem("email")
+  formData.email = localStorage.getItem("email")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
-      ...formData,[name]: value,
+      ...formData, [name]: value,
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
     try {
-       const res=await axios.post('http://localhost:3011/api/adduser',formData)
-       console.log(res);
-       if (res.status==201) {
+      const res = await axios.post('http://localhost:3011/api/adduser', formData)
+      console.log(res);
+      if (res.status == 201) {
         alert(res.data.msg)
         navigate("/login")
-       }
-      
-     } catch (error) {
+      }
+
+    } catch (error) {
       alert(res.data.error)
-     }
-  
-   
+    }
+
+
 
   };
 
@@ -48,7 +48,7 @@ const Register = () => {
       <form onSubmit={handleSubmit} >
         <div className="form-group">
           <label>Username:</label>
-          <input   type="text"   name="username"   value={formData.username}   onChange={handleChange}   required />
+          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
         </div>
         {/* <div className="form-group">
           <label>Email:</label>
@@ -56,7 +56,7 @@ const Register = () => {
         </div> */}
         <div className="form-group">
           <label>Password:</label>
-          <input type="password" name="pwd" value={formData.password} onChange={handleChange} required  />
+          <input type="password" name="pwd" value={formData.password} onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label>Confirm Password:</label>

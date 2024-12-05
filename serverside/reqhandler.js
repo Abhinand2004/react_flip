@@ -1,4 +1,5 @@
 import userSchema from "./model/user.js"
+import profileSchema from "./model/profile.js"
 import nodemailer from 'nodemailer'
 import bcrypt from 'bcrypt'
 import pkg from 'jsonwebtoken'
@@ -7,17 +8,17 @@ const { sign } = pkg
 
 
 const transporter = nodemailer.createTransport({
-    service:"gmail",
+    service: "gmail",
     // host: "sandbox.smtp.mailtrap.io",
     // port: 2525,
     // secure: false, // true for port 465, false for other ports
     auth: {
-      user: "abhinandc293@gmail.com",
-      pass: "xfrk uoxu ipfs lhjj",
+        user: "abhinandc293@gmail.com",
+        pass: "xfrk uoxu ipfs lhjj",
     },
-  });
+});
 
-  export async function addUser(req, res) {
+export async function addUser(req, res) {
     // console.log(req.body);
     const { username, email, pwd, cpwd } = req.body
     const user = await userSchema.findOne({ email })
@@ -32,8 +33,8 @@ const transporter = nodemailer.createTransport({
         }).catch((error) => {
             console.log(error);
         })
-    }else{
-        res.status(201).send({asd:"email already used "})
+    } else {
+        res.status(201).send({ asd: "email already used " })
     }
 }
 
@@ -54,13 +55,13 @@ export async function login(req, res) {
     res.status(201).send({ token })
 }
 
-  export async function verifyEmail(req,res) {
-    const {email}=req.body
+export async function verifyEmail(req, res) {
+    const { email } = req.body
     console.log(email);
-    if (!(email))  {
-        return res.status(500).send({msg:"fields are empty"})
+    if (!(email)) {
+        return res.status(500).send({ msg: "fields are empty" })
     }
-    const user= await userSchema.findOne({email})        
+    const user = await userSchema.findOne({ email })
     if (!user) {
         const info = await transporter.sendMail({
             from: 'abhinandc293@gmail.com', // sender address
@@ -77,12 +78,12 @@ export async function login(req, res) {
 
 </a>
     </div>
-</body>`, 
+</body>`,
         })
         console.log("Message sent: %s", info.messageId)
-        res.status(201).send({msg:"Verificaton email sented"})
-    }else{
-        return res.status(500).send({msg:"email already exist"})
+        res.status(201).send({ msg: "Verificaton email sented" })
+    } else {
+        return res.status(500).send({ msg: "email already exist" })
     }
 }
 
@@ -90,10 +91,7 @@ export async function display(req, res) {
     try {
         const usr = await userSchema.findOne({ _id: req.user.UserID });
         if (!usr) return res.status(404).send("User not found");
-        res.status(200).send({
-            username: usr.username,
-            email: usr.email,
-        });
+        res.status(200).send({ username: usr.username, email: usr.email,id:usr._id });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -108,3 +106,24 @@ export async function display(req, res) {
 
 
 
+
+
+
+
+export async function addprofile(req, res) {
+    console.log(req.body);
+    const { photo,id,note,bio,dob} = req.body
+    const userid = await profileSchema.findOne({ id })
+    const userdata=await userSchema.findOne({_id:id})
+    if (!userid) {   
+        const name=userdata.username
+        // console.log(userdata.username);
+        
+        const email=userdata.email
+            profileSchema.create({name,email,photo,id,note,bio,dob  })
+            res.status(200).send({ msg: "Successfull" })
+     
+    } else {
+        res.status(500).send({ msg: "user donot exist " })
+    }
+}

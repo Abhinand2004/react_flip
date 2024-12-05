@@ -6,10 +6,12 @@ const profileSchema = new mongoose.Schema({
     note: { type: String },
     name: { type: String },
     email: { type: String },
-
-
-
+    id: { type: String }
 });
+
+
+
+
 
 
 
