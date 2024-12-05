@@ -3,11 +3,16 @@ import "./profile.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Profile = () => {
+    const [profileexist,setprofileexist]=useState(false)
     const navigate=useNavigate()
     const [user,setUser]=useState({
         username:"",
         id:"",
-        email:""
+        email:"",
+        note:"",
+        dob:"",
+        bio:"",
+        photo:""
     })
     
     const getuserdata=async()=>{
@@ -19,7 +24,9 @@ const Profile = () => {
                 const res = await axios.get("http://localhost:3011/api/display", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                if (res.status == 200) {   setUser(res.data)  } 
+                if (res.status == 200) {   setUser(res.data) ;setprofileexist(res.data.bio || res.data.note || res.data.dob ||
+                    
+                     res.data.photo) } 
                 else {    navigate("/login")    }
             } catch (error) {
                 alert("your token is expired")
@@ -27,7 +34,7 @@ const Profile = () => {
                 navigate("/login")
             }
         }
-        console.log(token);
+        console.log(profileexist);
         
     }
     useEffect(()=>{
@@ -43,19 +50,19 @@ const Profile = () => {
                 {/* Left Side */}
                 <div className="profile-left">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user.photo || "https://via.placeholder.com/150"}
                         alt="Profile"
                         className="profile-image"
                     />
                     <div className="profile-info">
                         <p><strong>Username:</strong> {user.username}</p>
                         <p><strong>Email:</strong> {user.email}</p>
-                        <p><strong>Date of Birth:</strong> 1990-01-01</p>
-                        <p><strong>Bio:</strong> A passionate developer with expertise in MERN stack.</p>
-                        <p><strong>Note:</strong> Work hard, dream big!</p>
+                        <p><strong>Date of Birth:</strong> {user.dob || "nill"}</p>
+                        <p><strong>Bio:</strong> {user.bio || "nill"}</p>
+                        <p><strong>Note:</strong> {user.note || "nill"}</p>
                     </div>
                     <div className="profile-buttons">
-                        <button className="btn btn-create" onClick={gotobio}>Create Bio</button>
+                        <button className="btn btn-create" onClick={gotobio}> {profileexist ? "Edit Bio" : "Create Bio"}</button>
                         <button className="btn btn-delete">Delete</button>
                     </div>
                 </div>

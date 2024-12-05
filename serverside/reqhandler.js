@@ -90,8 +90,18 @@ export async function verifyEmail(req, res) {
 export async function display(req, res) {
     try {
         const usr = await userSchema.findOne({ _id: req.user.UserID });
-        if (!usr) return res.status(404).send("User not found");
-        res.status(200).send({ username: usr.username, email: usr.email,id:usr._id });
+        const  profile=await profileSchema.findOne({id:req.user.UserID})
+        if (profile) {
+            if (!usr) return res.status(404).send("User not found");
+        res.status(200).send({ username: usr.username, email: usr.email,id:usr._id,
+            photo:profile.photo,dob:profile.dob,note:profile.note,bio:profile.bio
+         });
+        }
+        else{
+            if (!usr) return res.status(404).send("User not found");
+        res.status(200).send({ username: usr.username, email: usr.email,id:usr._id
+         });
+        }
     } catch (error) {
         res.status(500).send(error);
     }

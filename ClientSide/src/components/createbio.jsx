@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./createbio.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-// import { set } from "mongoose";
+import { Navigate } from "react-router-dom";
 const Createbio = () => {
+    const Navigate=useNavigate()
     const {id}=useParams()
     const [formData, setFormData] = useState({
         photo: "",
@@ -48,6 +49,7 @@ try {
     if (res.status==200) {
 
         alert(res.data.msg)
+Navigate("/profile")
     }else{
         alert(res.data.msg)
     }
