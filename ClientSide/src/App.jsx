@@ -11,16 +11,16 @@ import Login from './components/Login';
 import HomePage from './components/HomePage';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
-
+// import { useState } from 'react';
 function App() {
  
-
+const [user,setUser]=useState("");
   return (
     <>
     <BrowserRouter>
-<Nav></Nav>
+{user &&  <Nav user={user}/>}
       <Routes>
-    <Route path="/" element={<HomePage/>}></Route>
+    <Route path="/" element={<HomePage setUser={setUser}/>}></Route>
 
       <Route path="/changepass" element={<ChangePass/>}></Route>
       <Route path="/verify" element={<Verify/>}></Route>
