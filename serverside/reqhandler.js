@@ -113,13 +113,6 @@ export async function display(req, res) {
 
 
 
-
-
-
-
-
-
-
 export async function addprofile(req, res) {
     console.log(req.body);
     const { photo,id,note,bio,dob} = req.body
@@ -136,4 +129,26 @@ export async function addprofile(req, res) {
     } else {
         res.status(500).send({ msg: "user donot exist " })
     }
+}
+
+
+
+
+
+
+
+export async function update(req,res) {
+    // console.log(req.params);
+    console.log(req.body);
+    const {...data}=req.body
+
+    await profileSchema.updateOne({id:req.params.id},{$set:{...data}}).then(()=>{
+        res.status(200).send({msg:"updated"})
+    }).catch((error)=>{
+        res.status(500).send({error:error})
+        
+    })
+    
+    
+    
 }

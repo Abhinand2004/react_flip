@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./profile.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Createbio from "./createbio";
 const Profile = () => {
     const [profileexist,setprofileexist]=useState(false)
     const navigate=useNavigate()
@@ -43,6 +44,9 @@ const Profile = () => {
     const gotobio=()=>{
         navigate(`/createbio/${user.id}`)
     }   
+    const editbio=()=>{
+        navigate(`/edit/${user.id}`)
+    }
     
     return (
         <div className="profile-container">
@@ -62,7 +66,7 @@ const Profile = () => {
                         <p><strong>Note:</strong> {user.note || "nill"}</p>
                     </div>
                     <div className="profile-buttons">
-                        <button className="btn btn-create" onClick={gotobio}> {profileexist ? "Edit Bio" : "Create Bio"}</button>
+                        {profileexist ? <button className="btn btn-create" onClick={editbio}>  Edit bio</button>: <button className="btn btn-create" onClick={Createbio}> create_bio </button>}
                         <button className="btn btn-delete">Delete</button>
                     </div>
                 </div>

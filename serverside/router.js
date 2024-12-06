@@ -10,7 +10,7 @@ router.route('/verify').post(rh.verifyEmail)
 router.route("/display").get(Auth,rh.display)
 router.route("/display").get(Auth,rh.display)
 router.route("/addprofile").post(rh.addprofile)
-
+router.route("/update/:id").put(rh.update)
 
 
 
