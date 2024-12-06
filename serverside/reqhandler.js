@@ -203,8 +203,7 @@ export async function displayphotos(req, res) {
         const usr = await photoSchema.find({ id: req.user.UserID });
      
             if (!usr) return res.status(404).send("User not found");
-        res.status(200).send({ date:usr.postdate,time:usr.posttime,images:usr.images,description:usr.description,
-         });
+        res.status(200).send({ usr });
         
     } catch (error) {
         res.status(500).send(error);

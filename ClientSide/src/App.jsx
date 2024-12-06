@@ -14,6 +14,7 @@ import Profile from './components/Profile';
 import Createbio from './components/createbio';
 import Editbio from './components/editbio';
 import Addphoto from './components/addphoto';
+import Detailspage from './components/details';
 // import { useState } from 'react';
 function App() {
  
@@ -33,7 +34,9 @@ const [user,setUser]=useState("");
       <Route path="/createbio/:id" element={<Createbio/>}></Route>
       <Route path="/edit/:id" element={<Editbio/>}></Route>
       <Route path="/addphoto" element={<Addphoto/>}></Route>
+      <Route path="/details/:id" element={<Detailspage/>}></Route>
 
+      
 
 
       

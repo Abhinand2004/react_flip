@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import "./addphoto.css";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const Addphoto = () => {
+    const navigate =useNavigate()
     const [formData, setFormData] = useState({
         images: [],
         description: "",
     });
 
     const handleImageChange = async (e) => {
-        const files = Array.from(e.target.files); // Convert FileList to an array
-        const photoPromises = files.map((file) => convertToBase64(file)); // Convert each file to Base64
-        const photos = await Promise.all(photoPromises); // Wait for all conversions
+        const files = Array.from(e.target.files); 
+        const photoPromises = files.map((file) => convertToBase64(file)); 
+        const photos = await Promise.all(photoPromises); 
         setFormData((prev) => ({
             ...prev,
-            images: [...prev.images, ...photos], // Append new images
+            images: [...prev.images, ...photos], 
         }));
     };
 
@@ -33,10 +35,8 @@ const Addphoto = () => {
     })
         if (res.status===200) {
             alert("data added successfully")
-            setFormData({
-                images: [],
-                description: "",
-            });
+            
+            navigate("/profile")
         }else{
             console.log(res.data.msg);
             alert("failed")
