@@ -6,6 +6,8 @@ const HomePage = ({ setUser }) => {
     const navigate = useNavigate()
     const fetchUserData = async () => {
         const token = localStorage.getItem("token");
+        console.log(token);
+        
         if (!token) {
             navigate("/login")
         } else {

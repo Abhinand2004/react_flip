@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 const EditBio = () => {
     const { id } = useParams();
+
     const [user, setUser] = useState({
         username: "",
         id: "",
@@ -26,11 +27,17 @@ const EditBio = () => {
         const fetchUser = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const asd = await axios.get(`http://localhost:3011/api/display`, {
+                const res = await axios.get(`http://localhost:3011/api/display`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                if (asd.status === 200) {
-                    setUser(asd.data);
+                if (res.status === 200) {
+                    setUser(res.data);
+                    setFormData({
+                        photo: res.data.photo || "",
+                        dob: res.data.dob || "",
+                        bio: res.data.bio || "",
+                        note: res.data.note || "",
+                    });
                 } else {
                     alert("Error while fetching user data");
                 }
@@ -66,44 +73,43 @@ const EditBio = () => {
         try {
             const res = await axios.put(`http://localhost:3011/api/update/${id}`, formData);
             if (res.status === 200) {
-                alert("Success");
+                alert("Profile updated successfully!");
             } else {
-                alert("Error");
+                alert("Error updating profile");
             }
         } catch (error) {
-            alert("Error while updating:", error);
+            alert("Error while updating profile:", error);
         }
     };
 
-    console.log(user);
-
     return (
         <div className="createbio-container">
-            <h1>Create Bio</h1>
+            <h1>Edit Bio</h1>
             <form onSubmit={handleSubmit} className="createbio-form">
-                {/* Image Display Area */}
+
                 <div className="image-area">
-                    <img src={user.photo || "https://via.placeholder.com/150"} alt="Preview" className="image-preview" />
+                    <img   src={formData.photo || "https://via.placeholder.com/150"}    alt="Preview"    className="image-preview"
+   />
                 </div>
-                {/* Image Selector */}
+               
                 <div className="form-group">
                     <label htmlFor="image">Select Image:</label>
                     <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                 </div>
-                {/* Date of Birth */}
+             
                 <div className="form-group">
                     <label htmlFor="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="dob" value={user.dob} onChange={handleInputChange} />
+                    <input   type="date"   id="dob" name="dob"  value={formData.dob}   onChange={handleInputChange}   />
                 </div>
-                {/* Bio */}
+             
                 <div className="form-group">
                     <label htmlFor="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4" value={user.bio} onChange={handleInputChange}></textarea>
+                    <textarea   id="bio" name="bio"  rows="4"  value={formData.bio}  onChange={handleInputChange}   ></textarea>
                 </div>
-                {/* Note */}
+            
                 <div className="form-group">
                     <label htmlFor="note">Note:</label>
-                    <textarea id="note" name="note" rows="2" value={user.note} onChange={handleInputChange}></textarea>
+                    <textarea id="note"   name="note"   rows="2"   value={formData.note}   onChange={handleInputChange}  ></textarea>
                 </div>
 
                 <button type="submit" className="btn-submit">Edit Bio</button>

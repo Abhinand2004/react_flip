@@ -1,5 +1,6 @@
 import userSchema from "./model/user.js"
 import profileSchema from "./model/profile.js"
+import photoSchema from "./model/photos.js"
 import nodemailer from 'nodemailer'
 import bcrypt from 'bcrypt'
 import pkg from 'jsonwebtoken'
@@ -148,7 +149,64 @@ export async function update(req,res) {
         res.status(500).send({error:error})
         
     })
+
+}
+
+
+
+
+export async function deleteuser(req,res) {
+ 
+    const data= await userSchema.deleteOne({ _id: req.user.UserID })
+    const data2= await profileSchema.deleteOne({ id: req.user.UserID })
+
+    .then(()=>{
+        res.status(200).send({msg:"delete"})
+
+    }).catch((error)=>{
+        res.status(500).send({error})
+    });
     
-    
-    
+}
+
+
+
+
+export async function addphotos(req, res) {
+    try {
+        const { images, description } = req.body;
+        const userid = await userSchema.findOne({ _id: req.user.UserID });
+        
+        if (!userid) {   
+            return res.status(500).send({ msg: "User does not exist." });
+        }
+        const id = req.user.UserID;
+        const now = new Date();
+        const postdate = now.toISOString().split("T")[0];
+        const posttime = now.toTimeString().split(" ")[0]; 
+        const newPhoto = await photoSchema.create({  id,  images,  description,  postdate,  posttime   });
+
+        if (newPhoto) {
+            res.status(200).send({ msg: "Successfully added photo." });
+        } else {
+            res.status(500).send({ msg: "Error creating photo." });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ msg: "An error occurred while adding the photo." });
+    }
+}
+
+
+export async function displayphotos(req, res) {
+    try {
+        const usr = await photoSchema.find({ id: req.user.UserID });
+     
+            if (!usr) return res.status(404).send("User not found");
+        res.status(200).send({ date:usr.postdate,time:usr.posttime,images:usr.images,description:usr.description,
+         });
+        
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }

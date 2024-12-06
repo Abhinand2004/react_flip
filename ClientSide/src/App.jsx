@@ -13,6 +13,7 @@ import Nav from './components/Nav';
 import Profile from './components/Profile';
 import Createbio from './components/createbio';
 import Editbio from './components/editbio';
+import Addphoto from './components/addphoto';
 // import { useState } from 'react';
 function App() {
  
@@ -31,6 +32,7 @@ const [user,setUser]=useState("");
       <Route path="/profile" element={<Profile/>}></Route>
       <Route path="/createbio/:id" element={<Createbio/>}></Route>
       <Route path="/edit/:id" element={<Editbio/>}></Route>
+      <Route path="/addphoto" element={<Addphoto/>}></Route>
 
 
 

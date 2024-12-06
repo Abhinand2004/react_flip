@@ -37,7 +37,7 @@ const Login = () => {
         alert(res.msg)
     }
     } catch (error) {
-      console.log(error);
+     alert("invalid username or password")
       
     }
 

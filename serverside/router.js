@@ -10,7 +10,9 @@ router.route('/verify').post(rh.verifyEmail)
 router.route("/display").get(Auth,rh.display)
 router.route("/addprofile").post(rh.addprofile)
 router.route("/update/:id").put(rh.update)
+router.route("/deleteuser").delete(Auth,rh.deleteuser)
 
-
+router.route("/postadd").post(Auth,rh.addphotos)
+router.route("/displayphotos").get(Auth,rh.displayphotos)
 
 export default router
