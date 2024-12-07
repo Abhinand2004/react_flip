@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./details.css";
+import "./postdetails.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const Detailspage = () => {
+const Postdetails = () => {
     const { id } = useParams();
     const [details, setDetails] = useState([]);
     const [imgs, setImgs] = useState([]);
@@ -22,10 +22,6 @@ const Detailspage = () => {
         }
     };
 
-
-    const deletepost=()=>{
-        
-    }
     useEffect(() => {
         fetchPostdata();
     
@@ -62,9 +58,8 @@ const Detailspage = () => {
                 <span className="post-date">Posted on: {details.postdate || "Unknown"}</span>
                 <span className="post-time">At: {details.posttime || "Unknown"}</span>
             </div>
-            <button onClick={deletepost}>Delete post</button>
         </div>
     );
 };
 
-export default Detailspage;
+export default Postdetails;

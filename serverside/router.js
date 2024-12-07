@@ -14,5 +14,6 @@ router.route("/deleteuser").delete(Auth,rh.deleteuser)
 
 router.route("/postadd").post(Auth,rh.addphotos)
 router.route("/displayphotos").get(Auth,rh.displayphotos)
+router.route("/homepage").get(rh.homepagedisplay)
 
 export default router

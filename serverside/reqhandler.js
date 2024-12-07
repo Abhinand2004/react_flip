@@ -209,3 +209,17 @@ export async function displayphotos(req, res) {
         res.status(500).send(error);
     }
 }
+
+
+
+export async function homepagedisplay(req, res) {
+    try {
+        const usr = await photoSchema.find();
+     
+            if (!usr) return res.status(404).send("User not found");
+        res.status(200).send({ usr });
+        
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
