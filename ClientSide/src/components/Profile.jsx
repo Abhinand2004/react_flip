@@ -3,7 +3,7 @@ import "./profile.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Profile = () => {
+const Profile = ({ setuserimg }) => {
     const [profileexist, setprofileexist] = useState(false);
     const navigate = useNavigate();
     const [photos, setPhotos] = useState([]);
@@ -27,10 +27,14 @@ const Profile = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (res.status === 200) {
+                    setuserimg(res.data.photo);
+
                     setUser(res.data);
                     setprofileexist(
                         res.data.bio || res.data.note || res.data.dob || res.data.photo
                     );
+                   
+                    
                 } else {
                     navigate("/login");
                 }
@@ -80,7 +84,7 @@ try {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     if (res.status===200) {
-        console.log("success");
+        // console.log("success");
         // console.log(res.data);
         setPhotos(res.data.usr)
         
@@ -98,7 +102,8 @@ useEffect(() => {
 }, []);
 
 
-console.log(photos);
+
+// console.log(photos);
 
     return (
         <div className="profile-container">
@@ -126,7 +131,7 @@ console.log(photos);
                     <div className="imagedisplay">
                     {photos.map((i, index) => (
                             <div key={index} className="photo-container">
-                                <Link to={`/details/${index}`}>
+                                <Link to={`/details/${i._id}`}>
                                 <img src={i.images[0]}  className="uploaded-image"  />
                                 
                                 </Link>

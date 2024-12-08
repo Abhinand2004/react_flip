@@ -16,14 +16,17 @@ import Editbio from './components/editbio';
 import Addphoto from './components/addphoto';
 import Detailspage from './components/details';
 import Postdetails from './components/postDetails';
-// import { useState } from 'react';
 function App() {
  
 const [user,setUser]=useState("");
+const [userimg,setuserimg]=useState("");
+console.log(userimg);  
+// console.log(user);
+
   return (
     <>
     <BrowserRouter>
-{user &&  <Nav user={user}/>}
+    {user && <Nav userimg={userimg} user={user} />}
       <Routes>
     <Route path="/" element={<HomePage setUser={setUser}/>}></Route>
 
@@ -31,7 +34,7 @@ const [user,setUser]=useState("");
       <Route path="/verify" element={<Verify/>}></Route>
       <Route path="/register" element={<Register/>}></Route>
       <Route path="/login" element={<Login/>}></Route>
-      <Route path="/profile" element={<Profile/>}></Route>
+      <Route path="/profile" element={<Profile setuserimg={setuserimg} />} />
       <Route path="/createbio/:id" element={<Createbio/>}></Route>
       <Route path="/edit/:id" element={<Editbio/>}></Route>
       <Route path="/addphoto" element={<Addphoto/>}></Route>

@@ -223,3 +223,39 @@ export async function homepagedisplay(req, res) {
         res.status(500).send(error);
     }
 }
+
+
+
+export async function photos(req, res) {
+    try {
+        const { id } = req.params;
+        const usr = await photoSchema.findOne({ _id: id });
+
+        if (!usr) {
+            return res.status(404).send({ message: "Photo not found" });
+        }
+        res.status(200).send({ photo: usr });
+    } catch (error) {
+        res.status(500).send({ error: error.message || "Internal Server Error" });
+    }
+}
+
+
+
+
+
+export async function photosdelete(req, res) {
+    try {
+        const { id } = req.params;
+        // Use findOne to fetch a single document by ID
+        const usr = await photoSchema.deleteOne({ _id: id });
+
+        if (!usr) {
+            return res.status(404).send({ message: "Photo not found" });
+        }
+
+        res.status(200).send({ msg:"deleted"});
+    } catch (error) {
+        res.status(500).send({ error: error.message || "Internal Server Error" });
+    }
+}

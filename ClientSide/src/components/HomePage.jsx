@@ -18,6 +18,8 @@ const HomePage = ({ setUser }) => {
                 });
                 if (res.status === 200) {
                     setUser(res.data.username);
+            
+                    
                 } else {
                     navigate("/login");
                 }
@@ -46,14 +48,14 @@ const HomePage = ({ setUser }) => {
         fetchAllData();
         fetchUserData();
     }, []);
-console.log(usrdata);
+// console.log(usrdata);
 
     return (
         <div className="full_page">
             {usrdata.length > 0 ? (
                 usrdata.map((data, index) => (
-                  <Link to={`/postdetails/${index}`}>
-                    <div className="cards" key={index}>
+                  <Link to={`/postdetails/${index}`} key={index}>
+                    <div className="cards" >
                         <div className="imagespace">
                             <img src={data.images[0]} alt="" />
                         </div>
