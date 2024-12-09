@@ -51,7 +51,8 @@ const HomePage = ({ setUser }) => {
 // console.log(usrdata);
 
     return (
-        <div className="full_page">
+     <div className="display">
+           <div className="full_page">
             {usrdata.length > 0 ? (
                 usrdata.map((data, index) => (
                   <Link to={`/postdetails/${index}`} key={index}>
@@ -70,6 +71,7 @@ const HomePage = ({ setUser }) => {
                 <p>No data available</p>
             )}
         </div>
+     </div>
     );
 };
 

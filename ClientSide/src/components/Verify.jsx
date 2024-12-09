@@ -10,7 +10,7 @@ const Verify = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Email submitted for verification:", email);
+ ;
     try {
       const res = await axios.post("http://localhost:3011/api/verify", { email })
       console.log(res);
@@ -26,7 +26,7 @@ const Verify = () => {
     } catch (error) {
       alert("email already exist")
     }
-    // navigate("/register")
+
   };
 
   return (

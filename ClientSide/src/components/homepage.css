@@ -1,11 +1,17 @@
-/* homepage.css */
 
+.display{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .full_page {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
     background-color: #f9f9f9;
+    width: 500px;
 }
 
 .cards {
@@ -45,4 +51,7 @@
 .descrip h3 {
     font-size: 1.2em;
     color: #333;
+}
+a{
+text-decoration: none;
 }
